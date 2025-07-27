@@ -35,10 +35,16 @@ class Translator:
     @staticmethod
     def json_to_message(data: Dict[str, Any]) -> Optional[Message]:
         try:
+            sender_data = data["sender"]
+            if isinstance(sender_data, dict):
+                sender = NodeMetadata(sender_data["host"], sender_data["port"])
+            else:
+                sender = sender_data
+            
             msg_type_str = data["msg_type"]
             
             message = Message(
-                sender=data["sender"],
+                sender=sender,
                 msg_type=MessageType(msg_type_str), 
                 data=data["data"], 
                 elect_term=data["elect_term"]
@@ -128,14 +134,14 @@ class NetworkComm:
     ):
         """Handle incoming client connections"""
         client_addr = writer.get_extra_info("peername")
-        logging.info("New connection from {}".format(client_addr))
+        logging.debug("New connection from {}".format(client_addr))
 
         try:
             # Read data from client
             data = await reader.read(1024)
             if data:
                 message_str = data.decode("utf-8").strip()
-                logging.info(
+                logging.debug(
                     "Received data {} from {}".format(message_str, client_addr)
                 )
 

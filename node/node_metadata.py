@@ -7,7 +7,6 @@ class NodeMetadata:
     
     def __eq__(self, value):
         if not isinstance(value, NodeMetadata):
-            breakpoint()
             return False
         return network_util.are_ipaddrs_equal(self._host, value.get_host())\
             and self._port == value.get_port()
