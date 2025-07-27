@@ -1,0 +1,19 @@
+layout {
+    pane split_direction="horizontal" {
+        pane {
+            // Content for the first horizontal pane
+            // For example: command "ls"
+        }
+        pane {
+            // Content for the second horizontal pane
+            // For example: command "htop"
+        }
+        pane {
+            // Content for the third horizontal pane
+            // For example: command "zsh"
+        }
+    }
+    pane size=1 borderless=true {
+        plugin location="zellij:compact-bar"
+    }
+}

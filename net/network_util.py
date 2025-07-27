@@ -8,11 +8,17 @@ def get_localhost_ip_addr() -> str:
 
 def are_ipaddrs_equal(addr1: str, addr2: str) -> bool:
     """Compare two IP addresses for equality, handling different formats"""
-    try:
-        return ipaddress.ip_address(addr1) == ipaddress.ip_address(addr2)
-    except ValueError:
-        # Fallback to string comparison if not valid IP addresses
-        return addr1.strip() == addr2.strip()
+    if addr1 == addr2:
+        return True
+    if addr1 == "localhost":
+        r_addr1 = "127.0.0.1"
+    else:
+        r_addr1 = addr1
+    if addr2 == "localhost":
+        r_addr2 = "127.0.0.1"
+    else:
+        r_addr2 = addr2
+    return r_addr1 == r_addr2
 
 def is_ippaddr_localhost(ip_addr: str) -> bool:
     """Check if IP address represents localhost"""
